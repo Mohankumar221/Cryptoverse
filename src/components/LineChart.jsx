@@ -31,28 +31,19 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
 
   useEffect(() => {
     if (coinHistory?.data?.history) {
-      console.log("coinHistory.data.history exists and has length:", coinHistory.data.history.length);
-
-      const prices = [];
-      const timestamps = [];
-
-      for (let i = 0; i < coinHistory.data.history.length; i += 1) {
-        const price = parseFloat(coinHistory.data.history[i].price);
-        const timestamp = new Date(coinHistory.data.history[i].timestamp * 1000).toLocaleDateString();
-
-        prices.push(price);
-        timestamps.push(timestamp);
-      }
-
+      const prices = coinHistory.data.history.map(item => parseFloat(item.price));
+      const timestamps = coinHistory.data.history.map(item => new Date(item.timestamp * 1000).toLocaleDateString());
+      console.log('Parsed Prices:', prices);
+      console.log('Parsed Timestamps:', timestamps);
       setCoinPrice(prices);
       setCoinTimestamp(timestamps);
-
-      console.log('coinPrice:', prices);
-      console.log('coinTimestamp:', timestamps);
-    } else {
-      console.error("coinHistory or coinHistory.data.history is not defined or empty");
     }
   }, [coinHistory]);
+
+  if (coinPrice.length === 0 || coinTimestamp.length === 0) {
+    console.error("No data available for chart");
+    return <div>No data available</div>;
+  }
 
   const data = {
     labels: coinTimestamp,
@@ -71,8 +62,16 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
     scales: {
       y: {
         beginAtZero: true,
+        min: Math.min(...coinPrice) - 10,
+        max: Math.max(...coinPrice) + 10,
+        ticks: {
+          stepSize: 1
+        }
       },
-    },
+      x: {
+        type: 'category'
+      }
+    }
   };
 
   return (
