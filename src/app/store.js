@@ -8,6 +8,7 @@ const store = configureStore({
     // Add the generated reducer as a specific top-level slice
     //[cryptoNewsApi.reducerPath]: cryptoNewsApi.reducer,
     [cryptoApi.reducerPath]: cryptoApi.reducer,
+    [cryptoNewsApi.reducerPath]: cryptoNewsApi.reducer,
     // Add other reducers here
   },
   // Adding the api middleware enables caching, invalidation, polling, and other features of RTK Query

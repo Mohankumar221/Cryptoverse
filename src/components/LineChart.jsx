@@ -33,8 +33,8 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
     if (coinHistory?.data?.history) {
       const prices = coinHistory.data.history.map(item => parseFloat(item.price));
       const timestamps = coinHistory.data.history.map(item => new Date(item.timestamp * 1000).toLocaleDateString());
-      console.log('Parsed Prices:', prices);
-      console.log('Parsed Timestamps:', timestamps);
+      // console.log('Parsed Prices:', prices);
+      // console.log('Parsed Timestamps:', timestamps);
       setCoinPrice(prices);
       setCoinTimestamp(timestamps);
     }

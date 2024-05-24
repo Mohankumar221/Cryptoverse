@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Select, Typography, Row, Col, Avatar, Card } from 'antd';
 import moment from 'moment';
-
 import { useGetCryptosQuery } from '../services/cryptoApi';
 import { useGetCryptoNewsQuery } from '../services/cryptoNewsApi';
 
@@ -13,21 +12,17 @@ const { Option } = Select;
 const News = ({ simplified }) => {
   const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
   const { data: cryptosData } = useGetCryptosQuery(100);
-  const { data: cryptoNews, isFetching, error } = useGetCryptoNewsQuery({ newsCategory, count: simplified ? 6 : 12 });
-
-  useEffect(() => {
-    // console.log('cryptosData:', cryptosData);
-    // console.log('cryptoNews:', cryptoNews);
-    // console.log('error:', error);
-  }, [cryptosData, cryptoNews, error]);
+  const { data: cryptoNews, isFetching, error } = useGetCryptoNewsQuery();
 
   if (isFetching) return 'Loading...';
-
   if (error) return 'Error fetching news';
+  if (!cryptoNews?.data) return 'No news available';
 
-  if (!cryptoNews?.data) {
-    return 'No news available';
-  }
+  // Determine the maximum number of news items to display based on the page type
+  const maxNewsItems = simplified ? 9 : 27;
+
+  // Slice the cryptoNews.data array to include only the desired number of items
+  const limitedCryptoNews = cryptoNews.data.slice(0, maxNewsItems);
 
   return (
     <Row gutter={[24, 24]}>
@@ -48,13 +43,17 @@ const News = ({ simplified }) => {
           </Select>
         </Col>
       )}
-      {cryptoNews.data.map((news, i) => (
+      {limitedCryptoNews.map((news, i) => (
         <Col xs={24} sm={12} lg={8} key={i}>
           <Card hoverable className="news-card">
             <a href={news.url} target="_blank" rel="noreferrer">
               <div className="news-image-container">
                 <Title className="news-title" level={4}>{news.title}</Title>
-                <img src={news?.thumbnail || demoImage} alt="news" />
+                <img
+                  src={news.thumbnail || demoImage}
+                  style={{ maxWidth: '100px', maxHeight: '100px' }}
+                  alt="news"
+                />
               </div>
               <p>{news.description.length > 100 ? `${news.description.substring(0, 100)}...` : news.description}</p>
               <div className="provider-container">
