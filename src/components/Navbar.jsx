@@ -7,8 +7,8 @@ import icon from '../images/cryptocurrency.png';
 const menuItems = [
   { key: 'home', icon: <HomeOutlined />, label: <Link to="/">Home</Link> },
   { key: 'cryptocurrencies', icon: <FundOutlined />, label: <Link to="/cryptocurrencies">Cryptocurrencies</Link> },
-  // { key: 'exchanges', icon: <MoneyCollectOutlined />, label: <Link to="/exchanges">Exchanges</Link> },
-  // { key: 'news', icon: <BulbOutlined />, label: <Link to="/news">News</Link> },
+  //  { key: 'exchanges', icon: <MoneyCollectOutlined />, label: <Link to="/exchanges">Exchanges</Link> },
+  { key: 'news', icon: <BulbOutlined />, label: <Link to="/news">News</Link> },
 ];
 
 function Navbar() {

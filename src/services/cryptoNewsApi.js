@@ -14,7 +14,7 @@ export const cryptoNewsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getCryptoNews: builder.query({
-      query: () => createRequest(`/coindesk`),
+      query: ({ source }) => createRequest(`/${source}`),
     }),
   }),
 });

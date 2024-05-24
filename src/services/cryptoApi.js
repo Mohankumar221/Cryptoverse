@@ -25,6 +25,16 @@ export const cryptoApi = createApi({
       query: ({ coinId, timeperiod }) => createRequest(`coin/${coinId}/history?timeperiod=${timeperiod}`),
     }),
 
+    getExchanges: builder.query({
+      query: () => ({
+        url: 'https://crypto-market-prices.p.rapidapi.com/exchanges',
+        headers: {
+          'X-RapidAPI-Key': 'ae147206cemsha032628a10e9536p1746fcjsn8abbadd3c0a1',
+          'X-RapidAPI-Host': 'crypto-market-prices.p.rapidapi.com'
+        }
+      }),
+    }),
+
   }),
 });
 
