@@ -6,7 +6,7 @@ import { cryptoApi } from '../services/cryptoApi';
 const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
-    [cryptoNewsApi.reducerPath]: cryptoNewsApi.reducer,
+    //[cryptoNewsApi.reducerPath]: cryptoNewsApi.reducer,
     [cryptoApi.reducerPath]: cryptoApi.reducer,
     // Add other reducers here
   },

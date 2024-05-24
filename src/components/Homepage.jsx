@@ -9,8 +9,8 @@ const { Title } = Typography;
 
 function Homepage() {
   const { data, isFetching } = useGetCryptosQuery();
-  console.log(data);
   const globalStats = data?.data?.stats;
+  console.log(data);
 
   if (isFetching) return 'Loading...';
   if (!globalStats) return 'Error fetching data';
@@ -41,11 +41,11 @@ function Homepage() {
       </div>
       <Cryptocurrencies simplified/>
 
-      <div className="home-heading-container">
+      {/* <div className="home-heading-container">
         <Title level={2} className='home-title'>Latest Crypto News</Title>
         <Title level={3} className='show-more'><Link to="/news">Show More</Link></Title>
       </div>
-      <News simplified/>
+      <News simplified/> */}
 
     </>
   );
